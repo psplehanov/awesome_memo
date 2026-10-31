@@ -1,4 +1,4 @@
---- memo_popup.lua — попап со случайной активной запиской для Awesome WM.
+-- memo_popup.lua — попап со случайной активной запиской для Awesome WM.
 --
 -- Использование в rc.lua:
 --   local memo = require("widgets.memo_popup")({ path = "~/vault/memos" })
@@ -15,7 +15,7 @@ local lfs = require("lfs")
 
 local M = {}
 
-local HINT = "Esc — закрыть    r — другая    e — редактор    Space — статус"
+local HINT = "Esc — закрыть    r — обновить    e — редактор    Space — статус"
 
 local seeded = false
 
@@ -477,12 +477,13 @@ local function build_ui(cfg)
     buttons.forced_width = cfg.width - 2 * cfg.padding
 
     local hint = wibox.widget.textbox()
+    hint.align = "center"
     hint.font = cfg.fonts.hint
     hint.markup = '<span foreground="' .. cfg.colors.muted .. '">'
         .. gears.string.xml_escape(HINT) .. "</span>"
 
     local content = wibox.layout.fixed.vertical()
-    content.spacing = 8
+    content.spacing = 15
     content:add(topic)
     content:add(scroll)
     content:add(buttons)
